@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOC Login</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-[#030712] text-gray-100 h-screen flex items-center justify-center font-sans">
+    <div class="bg-gray-900/60 p-8 rounded-2xl border border-gray-800 shadow-2xl w-96 backdrop-blur-md">
+        <h2 class="text-xl font-bold mb-6 text-center text-cyan-400 tracking-wide">SOC Portal Access</h2>
+                <form id="login-form" class="space-y-5">
+            <div>
+                <label class="block text-xs text-gray-400 mb-1 uppercase tracking-wider">Username</label>
+                <input type="text" name="username" class="w-full bg-gray-950 border border-gray-700 rounded-lg p-2.5 text-white focus:border-cyan-500 focus:outline-none text-sm" required>
+            </div>
+            <div class="relative mb-5">
+                <label class="block text-xs text-gray-400 mb-1 uppercase tracking-wider">Password</label>
+                <input type="password" id="password" name="password" class="w-full bg-gray-950 border border-gray-700 rounded-lg p-2.5 pr-10 text-white focus:border-cyan-500 focus:outline-none text-sm" required>
+                <button type="button" onclick="const pwd = document.getElementById('password'); pwd.type = pwd.type === 'password' ? 'text' : 'password';" class="absolute right-3 top-7 text-gray-400 hover:text-white cursor-pointer">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                </button>
+            </div>
+            <button type="submit" class="w-full bg-cyan-900 hover:bg-cyan-800 text-cyan-100 border border-cyan-700 font-medium py-2.5 rounded-lg transition text-sm cursor-pointer">Authenticate</button>
+        </form>
+        <p id="error-msg" class="text-red-400 text-xs mt-4 hidden text-center">Invalid credentials provided.</p>
+    </div>
+
+   <script>
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const response = await fetch('/api/login', { method: 'POST', body: formData });
+        if (response.ok) {
+            // Save username to local storage for the dashboard to read
+            localStorage.setItem('soc_user', formData.get('username')); 
+            window.location.href = '/dashboard';
+        } else {
+            document.getElementById('error-msg').classList.remove('hidden');
+        }
+    });
+</script>
+</body>
+</html>

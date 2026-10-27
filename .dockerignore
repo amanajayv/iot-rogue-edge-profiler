@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+data/*.db
+pcaps/*.pcap
+pcaps/*.pcapng
+.env
