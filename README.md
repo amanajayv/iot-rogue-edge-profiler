@@ -29,7 +29,7 @@ An AI-driven, Zero-Trust network telemetry dashboard designed to protect non-tec
 ## Project Structure
 
 ```
-auto-threat-hunter/
+iot-rogue-edge-profiler/
 ├── app/
 │   ├── __init__.py
 │   ├── analyzer.py       # Heuristic rule evaluation and AI trigger engine
